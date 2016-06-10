@@ -1,0 +1,7 @@
+
+the key needs to be inserted in the following locations:
+
+
+1.Paste the apikey in the MainActivity.class,in onCreate function where "API_KEY"is written.
+
+2.paste the apikey in the movieDetail.class,in onCreate function where "API_KEY"is written.
