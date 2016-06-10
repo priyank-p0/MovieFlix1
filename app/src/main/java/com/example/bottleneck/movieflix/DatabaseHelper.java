@@ -66,38 +66,15 @@ Favourates favourates=new Favourates();
         return res;
     }
 
-   /* FavourateModel getfavourateList(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, new String[]{COL_1, COL_2, COL_3, COL_4, COL_5, COL_6}, COL_1 + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
-        FavourateModel favourateModel = new FavourateModel();
-        if(cursor!=null)
-        cursor.moveToFirst();
 
-
-
-
-        favourateModel.setId(cursor.getString(0));
-        favourateModel.setName(cursor.getString(1));
-        favourateModel.setRelease_date(cursor.getString(2));
-        favourateModel.setOverview(cursor.getString(3));
-        favourateModel.setPoster(cursor.getString(4));
-        favourateModel.setRating(cursor.getString(5));
-
-        return favourateModel;
-    }*/
 
     public void deleteContact(int id,DatabaseHelper dbi) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor dt=getData();
         Cursor r=db.rawQuery("select * from "+TABLE_NAME,null);
+        r.moveToFirst();
         db.delete(TABLE_NAME," ID  =?",new String[] { String.valueOf(id)});
         favourates.favList.remove(id-1);
 
-        if(dt.getCount()<1) {
-
-            db.delete(TABLE_NAME,null,null);
-           favourates.favourates();
-        }
 
         db.close();
     }
@@ -107,25 +84,5 @@ Favourates favourates=new Favourates();
         Cursor cursor = db.query(TABLE_NAME, new String[] { COL_1, COL_2,COL_3,COL_4,COL_5,COL_6}, "ID =?", new String[] { String.valueOf(id) }, null, null, null, null);
         return  cursor;
     }
-public SQLiteDatabase update()
-{
-    SQLiteDatabase old=this.getReadableDatabase();
-    SQLiteDatabase db=this.getWritableDatabase();
 
-    Cursor cursor_new =old.rawQuery("select * from "+TABLE_NAME,null);
-    ContentValues contentValues=new ContentValues();
-    while(cursor_new.moveToNext()) {
-        contentValues.put(COL_2, cursor_new.getString(1));
-        contentValues.put(COL_3, cursor_new.getString(1));
-        contentValues.put(COL_4, cursor_new.getString(1));
-        contentValues.put(COL_5, cursor_new.getString(1));
-        contentValues.put(COL_6, cursor_new.getString(1));
-
-        db.insert(TABLE_NAME,null,contentValues);
-
-    }
-
-return  db;
-
-}
 }

@@ -14,23 +14,27 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import com.example.bottleneck.movieflix.models.FavourateModel;
 import com.example.bottleneck.movieflix.models.MovieModel;
+
+import java.util.ArrayList;
 import java.util.List;
 import static com.example.bottleneck.movieflix.R.layout.activity_favourate_detail;
 
 
 public class FavourateDetail extends AppCompatActivity {
-DatabaseHelper myDb;
+    DatabaseHelper myDb;
     MainActivity obj=new MainActivity();
     int position;
     List<MovieModel> movieModelList;
     CheckBox favBox;
+    static ArrayList<FavourateModel> favList;
 
-     Favourates favourates= new Favourates();
-     FavourateModel favourateModel;
-     int pos;
-     Cursor r;
-      @Override
-     protected void onCreate(Bundle savedInstanceState) {
+
+    Favourates favourates= new Favourates();
+    FavourateModel favourateModel;
+    int pos;
+    Cursor r;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(activity_favourate_detail);
@@ -49,12 +53,12 @@ DatabaseHelper myDb;
 
         }*/
 
-          int disp=favourates.favposition+1;
-    r=myDb.getrow(favourates.favposition+1);
-          int po=r.getPosition();
+        int disp=favourates.favposition+1;
+        r=myDb.getrow(favourates.favposition+1);
+        int po=r.getPosition();
         r.moveToFirst();
-     // id =favourateModel.getId();
-         String name=r.getString(1);
+        // id =favourateModel.getId();
+        String name=r.getString(1);
         String date=r.getString(2);
         String overview=r.getString(3);
 
@@ -89,9 +93,7 @@ DatabaseHelper myDb;
     {
 
         myDb.deleteContact(favourates.favposition+1,myDb);
-       // mv.arrayList.remove(position);
 
-       // myDb.update();
         Intent intent = new Intent(this, Favourates.class);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

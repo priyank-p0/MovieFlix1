@@ -28,8 +28,8 @@ import java.util.ListIterator;
 public class Favourates extends AppCompatActivity {
 
 
-static int favposition;
-   static ArrayList<FavourateModel> favList;
+    static int favposition;
+    static ArrayList<FavourateModel> favList;
     GridView gridView;
     static int id;
     public void favourates()
@@ -39,31 +39,32 @@ static int favposition;
 
     }
     @Override
-        protected void onCreate(Bundle savedInstanceState)throws NullPointerException {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.content_favourates);
-            gridView=(GridView)findViewById(R.id.favourateList);
+    protected void onCreate(Bundle savedInstanceState)throws NullPointerException {
+        super.onCreate(savedInstanceState);
+        Intent in=getIntent();
+        setContentView(R.layout.content_favourates);
+        gridView=(GridView)findViewById(R.id.favourateList);
 
-            Adapter adapter=new Adapter(this,getFavList());
+        Adapter adapter=new Adapter(this,getFavList());
 
-            gridView.setAdapter(adapter);
+        gridView.setAdapter(adapter);
 
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-               public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                   favposition=position;
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                favposition=position;
 
-                    Intent intent=new Intent(getApplicationContext(),FavourateDetail.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-
-                }
-          });
+                Intent intent=new Intent(getApplicationContext(),FavourateDetail.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
 
             }
+        });
 
+    }
+int ctr=1;
 
-    private ArrayList<FavourateModel> getFavList() {
+    public ArrayList<FavourateModel> getFavList() {
         favList=new ArrayList<FavourateModel>();
 
         DatabaseHelper dB=new DatabaseHelper(this);
@@ -72,12 +73,15 @@ static int favposition;
         Cursor res=dB.getData();
         while(res.moveToNext())
         {
-            FavourateModel favourateModel=new FavourateModel();
-            favourateModel.setId(res.getString(0));
 
-            favourateModel.setName(res.getString(1));
+            FavourateModel favourateModel=new FavourateModel();
+
+                favourateModel.setId(res.getString(0));
+
+                favourateModel.setName(res.getString(1));
 
             favList.add(favourateModel);
+            ctr++;
 
         }
         return favList;
@@ -92,4 +96,4 @@ static int favposition;
 
 
 
-        }
+}
